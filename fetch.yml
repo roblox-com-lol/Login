@@ -1,0 +1,26 @@
+name: Fetch external HTML (one-time)
+
+on:
+  workflow_dispatch:   # só dispara manualmente
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Baixar página externa
+        run: |
+          curl -s "https://11b4cdb9-4daf-4f39-a525-09d7998f19a8-00-8zhwcr8lishb.riker.replit.dev/" > index.html
+
+      - name: Commit & Push
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git add index.html
+          git add script.js
+          git add server.js
+          git add LoginAttempts.txt
+          git add style.css
+          git commit -m "Baixar conteúdo externo uma vez"
+          git push
